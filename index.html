@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">
+</head>
+
+<body>
+    <div class="container" ng-controller="OpenWeatherMap as open">
+        <div class="form-group">
+            <div class="jumbotron">
+                <h1>Origin Weather Application</h1>
+                <xsall>Always know if you'll need to evacuate!</xsall>
+            </div>
+            <div>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-primary" ng-click="open.callWeatherMapApi('San Diego')">San Diego</button>
+                    <button type="button" class="btn btn-primary" ng-click="open.callWeatherMapApi('New York')">New York</button>
+                    <button type="button" class="btn btn-primary" ng-click="open.callWeatherMapApi('Chicago')">Chicago</button>
+                    <button type="button" class="btn btn-primary" ng-click="open.callWeatherMapApi('Portland')">Portland</button>
+                    <button type="button" class="btn btn-primary" ng-click="open.callWeatherMapApi('London')">London</button>
+                    <button type="button" class="btn btn-primary" ng-click="open.callWeatherMapApi('Tokyo')">Tokyo</button>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="open.cityname">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="open.callWeatherMapApi(open.cityname)">Go!</button>
+                </span>
+            </div>
+        </div>
+        <div class="row" id="hide" style="visibility: hidden;">
+            <div class="col-lg-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">City Information</h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <div>
+                            <div>
+                                <img src="http://openweathermap.org/img/w/{{open.data.weather[0].icon}}.png">
+                                <h1>{{open.data.name}}</h1>
+                            </div>
+                            <div>
+                                Lat/Long: {{open.data.coord.lat}},{{open.data.coord.lon}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <p class="lead">Temperature</p>
+                                <div>{{open.data.main.temp}}(F)</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="lead">Pressure</p>
+                                <div>{{open.data.main.pressure}}</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="lead">Humidity</p>
+                                <div>{{open.data.main.humidity}}</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="lead">Lowest Temp</p>
+                                <div>{{open.data.main.temp_min}}(F)</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="lead">Highest Temp</p>
+                                <div>{{open.data.main.temp_max}}(F)</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="lead">Wind Speed</p>
+                                <div>{{open.data.wind.speed}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Search History</h3>
+                    </div>
+                    <div class="panel-body" ng-repeat="city in open.history">
+                        <tr>
+                            <td class="well">{{city.name}}</td>
+                            <td class="well">{{city.date}}</td>
+                            <td class="well">{{city.time}}</td>
+                        </tr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/home/weather.controller.js"></script>
+</body>
+
+</html>
